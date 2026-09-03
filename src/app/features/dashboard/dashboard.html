@@ -1,0 +1,89 @@
+<div class="gi-in space-y-6">
+  <div class="flex flex-wrap items-end justify-between gap-4">
+    <div>
+      <p class="text-xs uppercase tracking-[0.28em] text-white/40">RF-04 · micro Python</p>
+      <h1 class="mt-1 font-display text-4xl">Dashboard</h1>
+      <p class="mt-2 max-w-xl text-white/50">
+        Una lectura HTTP al entrar. Después, WebSocket: cada alta actualiza las gráficas sin recargar ni volver a pegarle a la BD.
+      </p>
+    </div>
+    <div
+      class="flex items-center gap-2 rounded-full border border-white/10 px-3 py-1.5 text-xs"
+      [class.gi-live]="metrics.livePulse() > 0"
+    >
+      <span
+        class="size-2 rounded-full"
+        [class.bg-teal-400]="metrics.connected()"
+        [class.bg-white/30]="!metrics.connected()"
+      ></span>
+      {{ metrics.connected() ? 'Stream en vivo' : (metrics.socketError() ?? 'Reconectando canal…') }}
+      @if (metrics.livePulse() > 0) {
+        <span class="text-teal-300">· {{ metrics.livePulse() }} eventos</span>
+      }
+    </div>
+  </div>
+
+  @if (metrics.error()) {
+    <p class="text-sm text-rose-300">{{ metrics.error() }}</p>
+  }
+
+  <div class="grid gap-4 sm:grid-cols-3">
+    <article class="gi-card rounded-3xl p-5">
+      <p class="text-xs uppercase tracking-wider text-white/40">Total facturado</p>
+      <p class="mt-2 font-display text-3xl gi-gold">
+        {{ grand() | currency: 'COP' : 'symbol' : '1.2-2' : 'es-CO' }}
+      </p>
+    </article>
+    <article class="gi-card rounded-3xl p-5">
+      <p class="text-xs uppercase tracking-wider text-white/40">Facturas</p>
+      <p class="mt-2 font-display text-3xl">{{ count() }}</p>
+    </article>
+    <article class="gi-card rounded-3xl p-5">
+      <p class="text-xs uppercase tracking-wider text-white/40">Tipos activos</p>
+      <p class="mt-2 font-display text-3xl">{{ rows().filter((r) => r.value > 0).length }}/3</p>
+    </article>
+  </div>
+
+  <div class="grid gap-6 lg:grid-cols-2">
+    <section class="gi-card rounded-3xl p-6">
+      <h2 class="font-display text-xl">Participación por tipo</h2>
+      <div class="mt-6 flex flex-col items-center gap-6 sm:flex-row">
+        <div class="relative size-52 shrink-0">
+          <canvas
+            baseChart
+            [data]="donutData()"
+            [options]="donutOptions"
+            type="doughnut"
+            role="img"
+            aria-label="Participación del total facturado por tipo de factura"
+          ></canvas>
+        </div>
+        <ul class="w-full space-y-3 text-sm">
+          @for (slice of donut(); track slice.invoice_type) {
+            <li class="flex items-center justify-between gap-3">
+              <span class="flex items-center gap-2">
+                <span class="size-2.5 rounded-full" [style.background]="slice.color"></span>
+                {{ slice.label }}
+              </span>
+              <span class="text-white/60">{{ slice.percent | number: '1.0-1' : 'es-CO' }}%</span>
+            </li>
+          }
+        </ul>
+      </div>
+    </section>
+
+    <section class="gi-card rounded-3xl p-6">
+      <h2 class="font-display text-xl">Total por tipo</h2>
+      <div class="mt-6 h-64">
+        <canvas
+          baseChart
+          [data]="barData()"
+          [options]="barOptions"
+          type="bar"
+          role="img"
+          aria-label="Total facturado por tipo de factura"
+        ></canvas>
+      </div>
+    </section>
+  </div>
+</div>
