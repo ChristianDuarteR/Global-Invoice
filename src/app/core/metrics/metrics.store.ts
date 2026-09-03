@@ -78,8 +78,7 @@ export class MetricsStore {
       this.scheduleReconnect();
       return;
     }
-    const proto = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-    const url = `${proto}//${window.location.host}${environment.metricsWsPath}?token=${encodeURIComponent(token)}`;
+    const url = `${environment.metricsWsUrl}?token=${encodeURIComponent(token)}`;
 
     try {
       this.socket = new WebSocket(url);
