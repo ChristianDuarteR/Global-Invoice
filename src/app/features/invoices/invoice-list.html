@@ -1,17 +1,41 @@
 <div class="invoice-list-page gi-in">
-  <div class="flex flex-wrap items-end justify-between gap-4">
+  <div class="flex flex-wrap items-end justify-between">
     <div>
-      <h1 class="mt-1 font-display text-4xl">Facturas a la fecha</h1>
+      <h1 class="font-display text-4xl">Facturas a la fecha</h1>
+      <p class="text-black/55">Consulta y gestiona tus facturas</p>
     </div>
-    @if (auth.isOperador()) {
+    <div class="invoice-toolbar">
+      <div class="search-row">
+        <input
+          id="invoice-search"
+          class="search-input"
+          type="search"
+          [formControl]="search"
+          placeholder="Cliente o tipo: Acme, EXPORTACION…"
+          autocomplete="off"
+        />
+        @if (search.value) {
+          <button type="button" class="clear-search" (click)="search.setValue('')">Limpiar</button>
+        }
+      </div>
+      @if (page(); as result) {
+        <p class="search-summary">
+          Actualmente tenemos {{ result.totalElements }} factura{{ result.totalElements === 1 ? '' : 's' }} en el libro.
+        </p>
+      }
+    </div>
+  </div>
+
+  @if (auth.isOperador()) {
+    <div class="mt-6">
       <a
         routerLink="/invoices/new"
         class="primary-action rounded-2xl px-5 py-2.5 text-sm font-semibold"
       >
-        Emitir factura
+        Emitir nueva factura
       </a>
-    }
-  </div>
+    </div>
+  }
 
   @if (loading()) {
     <p class="mt-10 text-black/55">Cargando libro de facturas…</p>
@@ -19,7 +43,11 @@
     <p class="mt-10 text-rose-300">{{ error() }}</p>
   } @else if (rows().length === 0) {
     <div class="gi-card mt-10 rounded-3xl p-10 text-center text-black/60">
-      Aún no hay emisiones. @if (auth.isOperador()) { Crea la primera. }
+      @if (search.value) {
+        No encontramos facturas para “{{ search.value }}”.
+      } @else {
+        Aún no hay emisiones. @if (auth.isOperador()) { Crea la primera. }
+      }
     </div>
   } @else {
     <div class="gi-card mt-8 overflow-hidden rounded-3xl">
@@ -55,5 +83,26 @@
         </table>
       </div>
     </div>
+    @if (page(); as result) {
+      <nav class="pagination mt-5" aria-label="Paginación de facturas">
+        <button
+          type="button"
+          class="pagination-button"
+          [disabled]="result.first || loading()"
+          (click)="goToPage(result.number - 1)"
+        >
+          Anterior
+        </button>
+        <span class="pagination-status">Página {{ result.number + 1 }} de {{ result.totalPages }}</span>
+        <button
+          type="button"
+          class="pagination-button"
+          [disabled]="result.last || loading()"
+          (click)="goToPage(result.number + 1)"
+        >
+          Siguiente
+        </button>
+      </nav>
+    }
   }
 </div>
