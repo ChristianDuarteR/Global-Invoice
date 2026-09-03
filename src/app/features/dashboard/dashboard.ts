@@ -94,12 +94,12 @@ export class DashboardPage implements OnInit {
     scales: {
       x: {
         beginAtZero: true,
-        grid: { color: 'rgba(255, 255, 255, 0.08)' },
-        ticks: { color: 'rgba(255, 255, 255, 0.6)' },
+        grid: { color: 'rgba(36, 36, 36, 0.1)' },
+        ticks: { color: 'rgba(36, 36, 36, 0.7)' },
       },
       y: {
         grid: { display: false },
-        ticks: { color: 'rgba(255, 255, 255, 0.8)' },
+        ticks: { color: 'rgba(36, 36, 36, 0.8)' },
       },
     },
   };

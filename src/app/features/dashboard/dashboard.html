@@ -1,25 +1,11 @@
 <div class="gi-in space-y-6">
   <div class="flex flex-wrap items-end justify-between gap-4">
     <div>
-      <p class="text-xs uppercase tracking-[0.28em] text-white/40">RF-04 · micro Python</p>
-      <h1 class="mt-1 font-display text-4xl">Dashboard</h1>
-      <p class="mt-2 max-w-xl text-white/50">
-        Una lectura HTTP al entrar. Después, WebSocket: cada alta actualiza las gráficas sin recargar ni volver a pegarle a la BD.
+      <p class="text-xs uppercase tracking-[0.28em] text-black/45">Resumen de la operación</p>
+      <h1 class="mt-1 font-display text-4xl">Como estamos al dia de hoy</h1>
+      <p class="mt-2 max-w-xl text-black/55">
+        Estas cifras se actualizan a medida que llegan nuevas facturas. La vista se mantiene al día para ti.
       </p>
-    </div>
-    <div
-      class="flex items-center gap-2 rounded-full border border-white/10 px-3 py-1.5 text-xs"
-      [class.gi-live]="metrics.livePulse() > 0"
-    >
-      <span
-        class="size-2 rounded-full"
-        [class.bg-teal-400]="metrics.connected()"
-        [class.bg-white/30]="!metrics.connected()"
-      ></span>
-      {{ metrics.connected() ? 'Stream en vivo' : (metrics.socketError() ?? 'Reconectando canal…') }}
-      @if (metrics.livePulse() > 0) {
-        <span class="text-teal-300">· {{ metrics.livePulse() }} eventos</span>
-      }
     </div>
   </div>
 
@@ -29,24 +15,24 @@
 
   <div class="grid gap-4 sm:grid-cols-3">
     <article class="gi-card rounded-3xl p-5">
-      <p class="text-xs uppercase tracking-wider text-white/40">Total facturado</p>
+      <p class="text-xs uppercase tracking-wider text-black/45">Total Facturado a la fecha</p>
       <p class="mt-2 font-display text-3xl gi-gold">
         {{ grand() | currency: 'COP' : 'symbol' : '1.2-2' : 'es-CO' }}
       </p>
     </article>
     <article class="gi-card rounded-3xl p-5">
-      <p class="text-xs uppercase tracking-wider text-white/40">Facturas</p>
+      <p class="text-xs uppercase tracking-wider text-black/45">Comprobantes emitidos</p>
       <p class="mt-2 font-display text-3xl">{{ count() }}</p>
     </article>
     <article class="gi-card rounded-3xl p-5">
-      <p class="text-xs uppercase tracking-wider text-white/40">Tipos activos</p>
+      <p class="text-xs uppercase tracking-wider text-black/45">Tipos de factura activos</p>
       <p class="mt-2 font-display text-3xl">{{ rows().filter((r) => r.value > 0).length }}/3</p>
     </article>
   </div>
 
   <div class="grid gap-6 lg:grid-cols-2">
     <section class="gi-card rounded-3xl p-6">
-      <h2 class="font-display text-xl">Participación por tipo</h2>
+      <h2 class="font-display text-xl">Cómo esta repartiendose el dinero</h2>
       <div class="mt-6 flex flex-col items-center gap-6 sm:flex-row">
         <div class="relative size-52 shrink-0">
           <canvas
@@ -65,7 +51,7 @@
                 <span class="size-2.5 rounded-full" [style.background]="slice.color"></span>
                 {{ slice.label }}
               </span>
-              <span class="text-white/60">{{ slice.percent | number: '1.0-1' : 'es-CO' }}%</span>
+              <span class="text-black/60">{{ slice.percent | number: '1.0-1' : 'es-CO' }}%</span>
             </li>
           }
         </ul>
@@ -73,7 +59,7 @@
     </section>
 
     <section class="gi-card rounded-3xl p-6">
-      <h2 class="font-display text-xl">Total por tipo</h2>
+      <h2 class="font-display text-xl">Totales por tipo</h2>
       <div class="mt-6 h-64">
         <canvas
           baseChart
