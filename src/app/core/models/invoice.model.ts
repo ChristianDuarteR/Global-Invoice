@@ -34,6 +34,16 @@ export interface Invoice {
   createdBy: string;
 }
 
+export interface InvoicePage {
+  content: Invoice[];
+  number: number;
+  size: number;
+  totalElements: number;
+  totalPages: number;
+  first: boolean;
+  last: boolean;
+}
+
 export interface InvoiceDetail extends Invoice {
   totalInWords: string;
 }
