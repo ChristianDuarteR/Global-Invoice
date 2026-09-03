@@ -15,7 +15,7 @@ export interface AuthResponse {
 export interface CreateInvoiceRequest {
   type: InvoiceType;
   subtotal: number;
-  clientName: string;
+  clientId: number;
   customsCode?: string;
   description?: string;
 }

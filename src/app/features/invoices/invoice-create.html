@@ -29,9 +29,40 @@
           <label class="field-label">Cliente</label>
           <input
             class="invoice-input mt-2 outline-none"
-            formControlName="clientName"
-            placeholder="Davivienda S.A."
+            type="search"
+            [formControl]="clientSearch"
+            placeholder="Buscar por nombre o documento"
+            autocomplete="off"
           />
+          @if (clientsLoading()) {
+            <p class="mt-2 text-xs text-black/50">Buscando clientes…</p>
+          } @else if (clientsError()) {
+            <p class="mt-2 text-xs text-red-700" role="alert">{{ clientsError() }}</p>
+          } @else if (clients().length === 0) {
+            <p class="mt-2 text-xs text-black/50">No encontramos clientes con esa búsqueda.</p>
+          }
+          <select
+            class="invoice-input mt-2 outline-none"
+            formControlName="clientId"
+            [attr.aria-invalid]="form.controls.clientId.invalid"
+          >
+            <option value="" disabled>
+              {{ clientsLoading() ? 'Cargando clientes…' : 'Selecciona un cliente' }}
+            </option>
+            @for (client of clients(); track client.id) {
+              <option [ngValue]="client.id">
+                {{ client.name }} · {{ client.documentType }} {{ client.documentNumber }}
+              </option>
+            }
+          </select>
+          @if (form.controls.clientId.invalid && form.controls.clientId.touched) {
+            <p class="mt-2 text-sm font-medium text-red-700" role="alert">
+              Selecciona un cliente registrado.
+            </p>
+          }
+          <p class="mt-2 text-xs text-black/50">
+            {{ clients().length }} clientes disponibles en esta página. Usa el buscador para encontrar otro.
+          </p>
         </div>
         <div>
           <label class="field-label">Subtotal</label>
