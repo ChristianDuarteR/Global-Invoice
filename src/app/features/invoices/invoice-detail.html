@@ -16,10 +16,10 @@
 
     <blockquote class="amount-words gi-card mt-8 rounded-3xl p-8">
       <p class="text-xs uppercase tracking-[0.28em] text-gold/80">Importe en palabras</p>
-      <p class="mt-4 font-display text-3xl leading-tight md:text-4xl">“{{ inv.totalInWords }}”</p>
-      <p class="mt-4 text-sm text-black/55">
-        Una forma más humana de leer el importe registrado en esta factura.
-      </p>
+      <p class="mt-4 text-sm font-medium text-black/55">{{ 'invoice.detail.soapAmount' | transloco }}</p>
+      <p class="mt-2 font-display text-3xl leading-tight md:text-4xl">“{{ inv.totalInWords }}”</p>
+      <p class="mt-5 text-sm font-medium text-black/55">{{ 'invoice.detail.amountInWordsHint' | transloco }}</p>
+      <p class="mt-2 font-display text-3xl leading-tight md:text-4xl">“{{ totalInSpanish() }}”</p>
     </blockquote>
 
     <div class="mt-6 grid gap-4 sm:grid-cols-2">

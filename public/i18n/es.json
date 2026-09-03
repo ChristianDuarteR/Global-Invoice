@@ -1,0 +1,8 @@
+{
+  "invoice": {
+    "detail": {
+      "soapAmount": "Respuesta del SOAP",
+      "amountInWordsHint": "O En nuestro idioma:"
+    }
+  }
+}

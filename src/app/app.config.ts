@@ -5,8 +5,10 @@ import { ApplicationConfig, LOCALE_ID, provideBrowserGlobalErrorListeners } from
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
+import { provideTransloco } from '@jsverse/transloco';
 import { authInterceptor } from './core/auth/auth.interceptor';
 import { routes } from './app.routes';
+import { TranslocoHttpLoader } from './core/i18n/transloco-http.loader';
 
 registerLocaleData(localeEsCO);
 
@@ -17,6 +19,14 @@ export const appConfig: ApplicationConfig = {
     provideCharts(withDefaultRegisterables()),
     provideClientHydration(withEventReplay()),
     provideHttpClient(withFetch(), withInterceptors([authInterceptor])),
+    provideTransloco({
+      config: {
+        availableLangs: ['es'],
+        defaultLang: 'es',
+        reRenderOnLangChange: true,
+      },
+      loader: TranslocoHttpLoader,
+    }),
     { provide: LOCALE_ID, useValue: 'es-CO' },
   ],
 };

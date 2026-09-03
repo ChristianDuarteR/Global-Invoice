@@ -65,6 +65,7 @@ export class InvoiceCreatePage {
         debounceTime(300),
         distinctUntilChanged(),
         tap(() => {
+          this.form.controls.clientId.setValue(0, { emitEvent: false });
           this.clientsLoading.set(true);
           this.clientsError.set(null);
         }),
@@ -96,6 +97,11 @@ export class InvoiceCreatePage {
 
   selectType(type: InvoiceType): void {
     this.form.controls.type.setValue(type);
+  }
+
+  selectClient(client: Client): void {
+    this.form.controls.clientId.setValue(client.id);
+    this.clientSearch.setValue(client.name, { emitEvent: false });
   }
 
   submit(): void {
