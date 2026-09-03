@@ -1,4 +1,4 @@
-<div class="gi-in">
+<div class="invoice-list-page gi-in">
   <div class="flex flex-wrap items-end justify-between gap-4">
     <div>
       <h1 class="mt-1 font-display text-4xl">Facturas a la fecha</h1>
@@ -6,7 +6,7 @@
     @if (auth.isOperador()) {
       <a
         routerLink="/invoices/new"
-        class="rounded-2xl bg-red-600 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-red-950/30"
+        class="primary-action rounded-2xl px-5 py-2.5 text-sm font-semibold"
       >
         Emitir factura
       </a>
@@ -24,7 +24,7 @@
   } @else {
     <div class="gi-card mt-8 overflow-hidden rounded-3xl">
       <div class="overflow-x-auto">
-        <table class="w-full min-w-[720px] text-left text-sm">
+        <table class="invoice-table text-left text-sm">
           <thead class="text-[11px] uppercase tracking-wider text-black/45">
             <tr class="border-b border-black/10">
               <th class="px-5 py-3 font-medium">ID</th>

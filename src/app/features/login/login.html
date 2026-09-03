@@ -1,5 +1,5 @@
 <div class="grid min-h-dvh lg:grid-cols-2">
-  <section class="relative hidden overflow-hidden lg:flex flex-col justify-between p-12">
+  <section class="login-panel relative hidden overflow-hidden lg:flex flex-col justify-between p-12">
     <div class="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(225,37,27,0.2),transparent_36%),radial-gradient(circle_at_80%_80%,rgba(255,255,255,0.06),transparent_40%)]"></div>
     <div class="relative">
       <h1 class="mt-4 font-display text-6xl font-extrabold leading-[0.9]">
@@ -12,30 +12,30 @@
     <div class="relative flex min-h-28 items-end">
       <img
         ngSrc="/Davivienda_Logo.png"
-        width="500"
-        height="400"
+        width="245"
+        height="112"
         priority
         alt="Davivienda"
-        class="h-auto w-full max-w-[600px] object-contain object-left"
+        class="brand-logo object-contain object-left"
       />
     </div>
   </section>
 
   <section class="flex items-center justify-center p-6 md:p-12">
-    <form class="gi-card w-full max-w-md rounded-3xl p-8 gi-in" [formGroup]="form" (ngSubmit)="submit()">
+    <form class="login-card gi-card gi-in" [formGroup]="form" (ngSubmit)="submit()">
       <p class="text-xs uppercase tracking-[0.28em] text-gold/80">Tu espacio de trabajo te espera</p>
       <h2 class="mt-2 font-display text-3xl">Sigamos construyendo todos juntos</h2>
 
-      <label class="mt-8 block text-xs uppercase tracking-wider text-black/55">Usuario</label>
+      <label class="login-label mt-8">Usuario</label>
       <input
-        class="mt-2 w-full rounded-2xl border border-black/15 bg-white px-4 py-3 text-ink outline-none focus:border-gold/50"
+        class="login-input mt-2 outline-none"
         formControlName="username"
         autocomplete="username"
       />
 
-      <label class="mt-4 block text-xs uppercase tracking-wider text-black/55">Contraseña</label>
+      <label class="login-label mt-4">Contraseña</label>
       <input
-        class="mt-2 w-full rounded-2xl border border-black/15 bg-white px-4 py-3 text-ink outline-none focus:border-gold/50"
+        class="login-input mt-2 outline-none"
         type="password"
         formControlName="password"
         autocomplete="current-password"
@@ -46,7 +46,7 @@
       }
 
       <button
-        class="mt-6 w-full rounded-2xl bg-red-600 py-3 font-semibold text-white shadow-lg shadow-red-950/30 disabled:opacity-60"
+        class="login-action mt-6 py-3 font-semibold disabled:opacity-60"
         [disabled]="loading()"
       >
         {{ loading() ? 'Verificando…' : 'Iniciar sesión' }}

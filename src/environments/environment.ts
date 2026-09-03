@@ -1,6 +1,6 @@
 export const environment = {
-  javaApi: 'https://micro-java-core.onrender.com',
-  pythonApi: 'https://micro-python.onrender.com',
+  javaApi: 'http://localhost:8080',
+  pythonApi: 'http://localhost:5000',
   metricsWsPath: '/ws/metrics',
-  metricsWsUrl: 'wss://micro-python.onrender.com/ws/metrics',
+  metricsWsUrl: 'ws://localhost:5000/ws/metrics',
 };

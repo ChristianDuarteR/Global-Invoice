@@ -14,6 +14,7 @@ import { ToastService } from '../../core/ui/toast.service';
   selector: 'app-invoice-create',
   imports: [ReactiveFormsModule, CurrencyPipe],
   templateUrl: './invoice-create.html',
+  styleUrl: './invoice-create.scss',
 })
 export class InvoiceCreatePage {
   private readonly fb = inject(FormBuilder);
@@ -88,13 +89,13 @@ export class InvoiceCreatePage {
     this.error.set(null);
     this.api.create(payload).subscribe({
       next: (invoice) => {
-        this.toast.show('ok', 'Factura emitida', `Total ${invoice.total} · el dashboard del auditor ya recibió el evento.`);
+        this.toast.show('ok', 'Factura registrada', `Total ${invoice.total} · Se emitio un evento para sincronizar las metricas.`);
         void this.router.navigate(['/invoices', invoice.id]);
       },
       error: (err: HttpErrorResponse) => {
         this.submitting.set(false);
         if (err.status === 403) {
-          this.error.set('Tu rol no puede emitir facturas.');
+          this.error.set('Parece que no tienes permitido emitir facturas.');
           return;
         }
         this.error.set('No se pudo emitir. Revisa el código aduanero y el subtotal.');

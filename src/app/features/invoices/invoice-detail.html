@@ -8,13 +8,13 @@
   } @else if (invoice(); as inv) {
     <div class="mt-6 flex flex-wrap items-end justify-between gap-4">
       <div>
-        <p class="text-xs uppercase tracking-[0.28em] text-black/45">Factura #{{ inv.id }}</p>
+        <p class="page-kicker">Factura #{{ inv.id }}</p>
         <h1 class="mt-1 font-display text-4xl">{{ inv.clientName }}</h1>
       </div>
       <app-type-badge [type]="inv.type" />
     </div>
 
-    <blockquote class="gi-card mt-8 rounded-3xl p-8">
+    <blockquote class="amount-words gi-card mt-8 rounded-3xl p-8">
       <p class="text-xs uppercase tracking-[0.28em] text-gold/80">Importe en palabras</p>
       <p class="mt-4 font-display text-3xl leading-tight md:text-4xl">“{{ inv.totalInWords }}”</p>
       <p class="mt-4 text-sm text-black/55">
@@ -23,7 +23,7 @@
     </blockquote>
 
     <div class="mt-6 grid gap-4 sm:grid-cols-2">
-      <div class="gi-card rounded-3xl p-6 space-y-3 text-sm">
+      <div class="detail-card gi-card rounded-3xl p-6 space-y-3 text-sm">
         <div class="flex justify-between"><span class="text-black/55">Subtotal</span><span>{{ inv.subtotal | currency: 'COP' : 'symbol' : '1.2-2' : 'es-CO' }}</span></div>
         <div class="flex justify-between"><span class="text-black/55">IVA</span><span>{{ inv.iva | currency: 'COP' : 'symbol' : '1.2-2' : 'es-CO' }}</span></div>
         <div class="flex justify-between"><span class="text-black/55">Retención</span><span>{{ inv.withholding | currency: 'COP' : 'symbol' : '1.2-2' : 'es-CO' }}</span></div>
@@ -31,7 +31,7 @@
           <span>Total</span><span class="gi-gold">{{ inv.total | currency: 'COP' : 'symbol' : '1.2-2' : 'es-CO' }}</span>
         </div>
       </div>
-      <div class="gi-card rounded-3xl p-6 space-y-3 text-sm">
+      <div class="detail-card gi-card rounded-3xl p-6 space-y-3 text-sm">
         <p><span class="text-black/55">Emitida</span><br />{{ inv.createdAt | date: 'medium' : undefined : 'es-CO' }}</p>
         <p><span class="text-black/55">Por</span><br />{{ inv.createdBy }}</p>
         @if (inv.customsCode) {

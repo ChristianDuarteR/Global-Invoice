@@ -9,6 +9,7 @@ import { TypeBadge } from '../../shared/type-badge/type-badge';
   selector: 'app-invoice-detail',
   imports: [RouterLink, CurrencyPipe, DatePipe, TypeBadge],
   templateUrl: './invoice-detail.html',
+  styleUrl: './invoice-detail.scss',
 })
 export class InvoiceDetailPage implements OnInit {
   private readonly api = inject(InvoiceApi);

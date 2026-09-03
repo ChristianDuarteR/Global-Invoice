@@ -1,0 +1,74 @@
+:host {
+  display: block;
+}
+
+.shell-mark {
+  display: grid;
+  width: 2.75rem;
+  height: 2.75rem;
+  flex-shrink: 0;
+  place-items: center;
+  border-radius: 0.75rem;
+  color: #fff;
+  box-shadow: 0 0.5rem 1.25rem rgba(225, 37, 27, 0.2);
+}
+
+.mobile-mark {
+  display: flex;
+  width: 2rem;
+  height: 2rem;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  background: #e1251b;
+  color: #fff;
+  font-size: 0.75rem;
+}
+
+.shell-nav a,
+.mobile-nav a {
+  border-radius: 0.75rem;
+  color: rgba(0, 0, 0, 0.65);
+  font-size: 0.875rem;
+  transition: background-color 160ms ease, color 160ms ease, transform 160ms ease;
+}
+
+.shell-nav a {
+  padding: 0.625rem 0.75rem;
+}
+
+.shell-nav a:hover,
+.mobile-nav a:hover {
+  background: #fef2f2;
+  color: #b91c1c;
+}
+
+.session-card {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 1rem;
+  background: rgba(0, 0, 0, 0.03);
+  padding: 0.75rem;
+}
+
+.session-label {
+  color: rgba(0, 0, 0, 0.45);
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.logout-button {
+  width: 100%;
+  margin-top: 0.75rem;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 0.75rem;
+  padding: 0.5rem;
+  color: rgba(0, 0, 0, 0.65);
+  font-size: 0.75rem;
+}
+
+.shell-nav a:hover,
+.mobile-nav a:hover {
+  transform: translateY(-1px);
+}

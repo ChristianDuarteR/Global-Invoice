@@ -22,6 +22,7 @@ const LABELS: Record<InvoiceType, string> = {
   selector: 'app-dashboard',
   imports: [BaseChartDirective, CurrencyPipe, DecimalPipe],
   templateUrl: './dashboard.html',
+  styleUrl: './dashboard.scss',
 })
 export class DashboardPage implements OnInit {
   readonly metrics = inject(MetricsStore);
