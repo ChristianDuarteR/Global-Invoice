@@ -1,0 +1,60 @@
+<div class="gi-in">
+  <div class="flex flex-wrap items-end justify-between gap-4">
+    <div>
+      <p class="text-xs uppercase tracking-[0.28em] text-white/40">RF-02 / RF-03</p>
+      <h1 class="mt-1 font-display text-4xl">Facturas</h1>
+    </div>
+    @if (auth.isOperador()) {
+      <a
+        routerLink="/invoices/new"
+        class="rounded-2xl bg-gradient-to-r from-amber-200 to-amber-500 px-5 py-2.5 text-sm font-semibold text-ink"
+      >
+        Emitir factura
+      </a>
+    }
+  </div>
+
+  @if (loading()) {
+    <p class="mt-10 text-white/50">Cargando libro de facturas…</p>
+  } @else if (error()) {
+    <p class="mt-10 text-rose-300">{{ error() }}</p>
+  } @else if (rows().length === 0) {
+    <div class="gi-card mt-10 rounded-3xl p-10 text-center text-white/60">
+      Aún no hay emisiones. @if (auth.isOperador()) { Crea la primera. }
+    </div>
+  } @else {
+    <div class="gi-card mt-8 overflow-hidden rounded-3xl">
+      <div class="overflow-x-auto">
+        <table class="w-full min-w-[720px] text-left text-sm">
+          <thead class="text-[11px] uppercase tracking-wider text-white/40">
+            <tr class="border-b border-white/8">
+              <th class="px-5 py-3 font-medium">ID</th>
+              <th class="px-5 py-3 font-medium">Cliente</th>
+              <th class="px-5 py-3 font-medium">Tipo</th>
+              <th class="px-5 py-3 font-medium">Total</th>
+              <th class="px-5 py-3 font-medium">Emisión</th>
+              <th class="px-5 py-3 font-medium"></th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (row of rows(); track row.id) {
+              <tr class="border-b border-white/5 hover:bg-white/3">
+                <td class="px-5 py-4 font-mono text-white/50">#{{ row.id }}</td>
+                <td class="px-5 py-4">
+                  <p class="font-medium">{{ row.clientName }}</p>
+                  <p class="text-xs text-white/40">{{ row.createdBy }}</p>
+                </td>
+                <td class="px-5 py-4"><app-type-badge [type]="row.type" /></td>
+                <td class="px-5 py-4 font-medium">{{ row.total | currency: 'COP' : 'symbol' : '1.2-2' : 'es-CO' }}</td>
+                <td class="px-5 py-4 text-white/55">{{ row.createdAt | date: 'short' : undefined : 'es-CO' }}</td>
+                <td class="px-5 py-4 text-right">
+                  <a class="text-gold hover:underline" [routerLink]="['/invoices', row.id]">Detalle SOAP</a>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  }
+</div>
