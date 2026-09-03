@@ -1,8 +1,8 @@
-<div class="gi-in space-y-6">
+<div class="dashboard-page gi-in space-y-6">
   <div class="flex flex-wrap items-end justify-between gap-4">
     <div>
-      <p class="text-xs uppercase tracking-[0.28em] text-black/45">Resumen de la operación</p>
-      <h1 class="mt-1 font-display text-4xl">Como estamos al dia de hoy</h1>
+      <p class="page-kicker">Resumen de la operación</p>
+      <h1 class="mt-1 font-display text-4xl">Cómo estamos al día de hoy</h1>
       <p class="mt-2 max-w-xl text-black/55">
         Estas cifras se actualizan a medida que llegan nuevas facturas. La vista se mantiene al día para ti.
       </p>
@@ -10,29 +10,29 @@
   </div>
 
   @if (metrics.error()) {
-    <p class="text-sm text-rose-300">{{ metrics.error() }}</p>
+    <p class="text-sm text-rose-700" role="alert">{{ metrics.error() }}</p>
   }
 
   <div class="grid gap-4 sm:grid-cols-3">
-    <article class="gi-card rounded-3xl p-5">
-      <p class="text-xs uppercase tracking-wider text-black/45">Total Facturado a la fecha</p>
+    <article class="metric-card gi-card rounded-3xl p-5">
+      <p class="text-xs uppercase tracking-wider text-black/45">Total facturado a la fecha</p>
       <p class="mt-2 font-display text-3xl gi-gold">
         {{ grand() | currency: 'COP' : 'symbol' : '1.2-2' : 'es-CO' }}
       </p>
     </article>
-    <article class="gi-card rounded-3xl p-5">
+    <article class="metric-card gi-card rounded-3xl p-5">
       <p class="text-xs uppercase tracking-wider text-black/45">Comprobantes emitidos</p>
       <p class="mt-2 font-display text-3xl">{{ count() }}</p>
     </article>
-    <article class="gi-card rounded-3xl p-5">
+    <article class="metric-card gi-card rounded-3xl p-5">
       <p class="text-xs uppercase tracking-wider text-black/45">Tipos de factura activos</p>
       <p class="mt-2 font-display text-3xl">{{ rows().filter((r) => r.value > 0).length }}/3</p>
     </article>
   </div>
 
   <div class="grid gap-6 lg:grid-cols-2">
-    <section class="gi-card rounded-3xl p-6">
-      <h2 class="font-display text-xl">Cómo esta repartiendose el dinero</h2>
+    <section class="chart-card gi-card">
+      <h2 class="font-display text-xl">Cómo está repartiéndose el dinero</h2>
       <div class="mt-6 flex flex-col items-center gap-6 sm:flex-row">
         <div class="relative size-52 shrink-0">
           <canvas
@@ -58,7 +58,7 @@
       </div>
     </section>
 
-    <section class="gi-card rounded-3xl p-6">
+    <section class="chart-card gi-card">
       <h2 class="font-display text-xl">Totales por tipo</h2>
       <div class="mt-6 h-64">
         <canvas

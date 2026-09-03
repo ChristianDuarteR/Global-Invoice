@@ -10,6 +10,7 @@ import { ToastService } from '../../core/ui/toast.service';
   selector: 'app-login',
   imports: [NgOptimizedImage, ReactiveFormsModule],
   templateUrl: './login.html',
+  styleUrl: './login.scss',
 })
 export class LoginPage {
   private readonly fb = inject(FormBuilder);

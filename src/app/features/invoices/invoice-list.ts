@@ -10,8 +10,10 @@ import { TypeBadge } from '../../shared/type-badge/type-badge';
   selector: 'app-invoice-list',
   imports: [RouterLink, CurrencyPipe, DatePipe, TypeBadge],
   templateUrl: './invoice-list.html',
+  styleUrl: './invoice-list.scss',
 })
 export class InvoiceListPage implements OnInit {
+[x: string]: any;
   private readonly api = inject(InvoiceApi);
   readonly auth = inject(AuthService);
 
