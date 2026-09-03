@@ -1,38 +1,41 @@
 <div class="grid min-h-dvh lg:grid-cols-2">
   <section class="relative hidden overflow-hidden lg:flex flex-col justify-between p-12">
-    <div class="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(231,197,106,0.16),transparent_36%),radial-gradient(circle_at_80%_80%,rgba(94,234,212,0.12),transparent_40%)]"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(225,37,27,0.2),transparent_36%),radial-gradient(circle_at_80%_80%,rgba(255,255,255,0.06),transparent_40%)]"></div>
     <div class="relative">
-      <p class="text-xs uppercase tracking-[0.35em] text-white/40">Prueba full stack</p>
       <h1 class="mt-4 font-display text-6xl font-extrabold leading-[0.9]">
-        Global<br /><span class="gi-gold">Invoice</span>
+        DAVIVIENDA <br /><span class="gi-gold">Global Invoice</span>
       </h1>
-      <p class="mt-6 max-w-md text-lg text-white/65">
-        Motor tributario dinámico, auditoría SOAP y métricas en tiempo real. Sin recargar. Sin fetch de más.
+      <p class="mt-6 max-w-md text-lg text-black/65">
+        Su dinero puede estar en el lugar equivocado, tráigalo a Davivienda
       </p>
     </div>
-    <ul class="relative space-y-4 text-sm text-white/70">
-      <li class="gi-card rounded-2xl px-4 py-3">Nacional → subtotal + 19% IVA</li>
-      <li class="gi-card rounded-2xl px-4 py-3">Exportación → 0% IVA + código aduanero</li>
-      <li class="gi-card rounded-2xl px-4 py-3">Gubernamental → IVA 19% − retención 5%</li>
-    </ul>
+    <div class="relative flex min-h-28 items-end">
+      <img
+        ngSrc="/Davivienda_Logo.png"
+        width="500"
+        height="400"
+        priority
+        alt="Davivienda"
+        class="h-auto w-full max-w-[600px] object-contain object-left"
+      />
+    </div>
   </section>
 
   <section class="flex items-center justify-center p-6 md:p-12">
     <form class="gi-card w-full max-w-md rounded-3xl p-8 gi-in" [formGroup]="form" (ngSubmit)="submit()">
-      <p class="text-xs uppercase tracking-[0.28em] text-gold/80">Acceso JWT</p>
-      <h2 class="mt-2 font-display text-3xl">Entrar a la mesa</h2>
-      <p class="mt-2 text-sm text-white/50">OPERADOR emite. AUDITOR observa el tablero.</p>
+      <p class="text-xs uppercase tracking-[0.28em] text-gold/80">Tu espacio de trabajo te espera</p>
+      <h2 class="mt-2 font-display text-3xl">Sigamos construyendo todos juntos</h2>
 
-      <label class="mt-8 block text-xs uppercase tracking-wider text-white/45">Usuario</label>
+      <label class="mt-8 block text-xs uppercase tracking-wider text-black/55">Usuario</label>
       <input
-        class="mt-2 w-full rounded-2xl border border-white/10 bg-black/30 px-4 py-3 outline-none focus:border-gold/50"
+        class="mt-2 w-full rounded-2xl border border-black/15 bg-white px-4 py-3 text-ink outline-none focus:border-gold/50"
         formControlName="username"
         autocomplete="username"
       />
 
-      <label class="mt-4 block text-xs uppercase tracking-wider text-white/45">Contraseña</label>
+      <label class="mt-4 block text-xs uppercase tracking-wider text-black/55">Contraseña</label>
       <input
-        class="mt-2 w-full rounded-2xl border border-white/10 bg-black/30 px-4 py-3 outline-none focus:border-gold/50"
+        class="mt-2 w-full rounded-2xl border border-black/15 bg-white px-4 py-3 text-ink outline-none focus:border-gold/50"
         type="password"
         formControlName="password"
         autocomplete="current-password"
@@ -43,7 +46,7 @@
       }
 
       <button
-        class="mt-6 w-full rounded-2xl bg-gradient-to-r from-amber-200 to-amber-500 py-3 font-semibold text-ink disabled:opacity-60"
+        class="mt-6 w-full rounded-2xl bg-red-600 py-3 font-semibold text-white shadow-lg shadow-red-950/30 disabled:opacity-60"
         [disabled]="loading()"
       >
         {{ loading() ? 'Verificando…' : 'Iniciar sesión' }}
@@ -52,17 +55,17 @@
       <div class="mt-6 grid grid-cols-2 gap-2">
         <button
           type="button"
-          class="rounded-xl border border-white/10 px-3 py-2 text-xs text-white/70 hover:bg-white/5"
+          class="rounded-xl border border-black/15 px-3 py-2 text-xs text-black/65 hover:bg-black/5"
           (click)="fill('operador')"
         >
-          Demo OPERADOR
+          Entrar como operador
         </button>
         <button
           type="button"
-          class="rounded-xl border border-white/10 px-3 py-2 text-xs text-white/70 hover:bg-white/5"
+          class="rounded-xl border border-black/15 px-3 py-2 text-xs text-black/65 hover:bg-black/5"
           (click)="fill('auditor')"
         >
-          Demo AUDITOR
+          Entrar como auditor
         </button>
       </div>
     </form>

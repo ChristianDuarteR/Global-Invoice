@@ -1,8 +1,9 @@
 <div class="gi-in mx-auto max-w-5xl">
-  <p class="text-xs uppercase tracking-[0.28em] text-white/40">RF-02 · formulario dinámico</p>
-  <h1 class="mt-1 font-display text-4xl">Emisión inteligente</h1>
-  <p class="mt-2 max-w-2xl text-white/55">
-    El campo aduanero solo existe para Exportación: si cambias de tipo, desaparece de la vista y no viaja en el payload.
+  <p class="text-xs uppercase tracking-[0.28em] text-black/45">Nueva factura</p>
+  <h1 class="mt-1 font-display text-4xl">Emite sin perder el contexto</h1>
+  <p class="mt-2 max-w-2xl text-black/55">
+    Que factura necesitamos emitir? Selecciona el tipo de factura y completa los datos. 
+    El total se adapta en tiempo real para que puedas revisar cada concepto antes de emitir.
   </p>
 
   <form class="mt-8 grid gap-6 lg:grid-cols-[1.15fr_0.85fr]" [formGroup]="form" (ngSubmit)="submit()">
@@ -13,11 +14,11 @@
             type="button"
             class="gi-card rounded-2xl p-4 text-left transition"
             [class.ring-2]="form.controls.type.value === t.id"
-            [class.ring-amber-300/70]="form.controls.type.value === t.id"
+            [class.ring-red-500/70]="form.controls.type.value === t.id"
             (click)="selectType(t.id)"
           >
             <p class="font-display text-lg">{{ t.label }}</p>
-            <p class="mt-1 text-xs text-white/45">{{ t.hint }}</p>
+            <p class="mt-1 text-xs text-black/55">{{ t.hint }}</p>
             <p class="mt-3 text-[11px] uppercase tracking-wide text-gold/80">{{ t.formula }}</p>
           </button>
         }
@@ -25,27 +26,35 @@
 
       <div class="gi-card rounded-3xl p-6 space-y-4">
         <div>
-          <label class="text-xs uppercase tracking-wider text-white/40">Cliente</label>
+          <label class="text-xs uppercase tracking-wider text-black/55">Cliente</label>
           <input
-            class="mt-2 w-full rounded-2xl border border-white/10 bg-black/30 px-4 py-3 outline-none focus:border-gold/40"
+            class="mt-2 w-full rounded-2xl border border-black/15 bg-white px-4 py-3 text-ink outline-none focus:border-gold/40"
             formControlName="clientName"
             placeholder="Acme Corp"
           />
         </div>
         <div>
-          <label class="text-xs uppercase tracking-wider text-white/40">Subtotal</label>
+          <label class="text-xs uppercase tracking-wider text-black/55">Subtotal</label>
           <input
-            class="mt-2 w-full rounded-2xl border border-white/10 bg-black/30 px-4 py-3 outline-none focus:border-gold/40"
+            class="mt-2 w-full rounded-2xl border border-black/15 bg-white px-4 py-3 text-ink outline-none focus:border-gold/40"
+            [class.border-red-600]="form.controls.subtotal.invalid && (form.controls.subtotal.dirty || form.controls.subtotal.touched)"
+            [class.bg-red-50]="form.controls.subtotal.invalid && (form.controls.subtotal.dirty || form.controls.subtotal.touched)"
+            [attr.aria-invalid]="form.controls.subtotal.invalid"
             type="number"
-            min="0.01"
-            step="0.01"
+            min="0.00"
+            step="0.00"
             formControlName="subtotal"
           />
+          @if (form.controls.subtotal.invalid && (form.controls.subtotal.dirty || form.controls.subtotal.touched)) {
+            <p class="mt-2 text-sm font-medium text-red-700" role="alert">
+              El subtotal debe ser mayor que $0. No se permiten valores negativos.
+            </p>
+          }
         </div>
         <div>
-          <label class="text-xs uppercase tracking-wider text-white/40">Descripción (opcional)</label>
+          <label class="text-xs uppercase tracking-wider text-black/55">Descripción (opcional)</label>
           <input
-            class="mt-2 w-full rounded-2xl border border-white/10 bg-black/30 px-4 py-3 outline-none focus:border-gold/40"
+            class="mt-2 w-full rounded-2xl border border-black/15 bg-white px-4 py-3 text-ink outline-none focus:border-gold/40"
             formControlName="description"
           />
         </div>
@@ -54,7 +63,7 @@
           <div class="gi-in rounded-2xl border border-violet-400/25 bg-violet-400/8 p-4">
             <label class="text-xs uppercase tracking-wider text-violet-200">Código aduanero</label>
             <input
-              class="mt-2 w-full rounded-2xl border border-violet-300/20 bg-black/30 px-4 py-3 outline-none focus:border-violet-300/50"
+              class="mt-2 w-full rounded-2xl border border-violet-300/40 bg-white px-4 py-3 text-ink outline-none focus:border-violet-300/70"
               formControlName="customsCode"
               placeholder="ADU-001"
             />
@@ -65,18 +74,18 @@
     </div>
 
     <aside class="gi-card h-fit rounded-3xl p-6">
-      <p class="text-xs uppercase tracking-[0.22em] text-white/40">Vista previa Strategy</p>
-      <p class="mt-3 text-sm text-white/50">El backend recalcula con BigDecimal. Esto es la misma regla, en vivo.</p>
+      <p class="text-xs uppercase tracking-[0.22em] text-black/45">Así quedaría</p>
+      <p class="mt-3 text-sm text-black/55">El total se calcula en el momento para que puedas revisar cada concepto antes de emitir.</p>
       <dl class="mt-6 space-y-3 text-sm">
         <div class="flex justify-between">
-          <dt class="text-white/45">IVA</dt>
+          <dt class="text-black/55">IVA</dt>
           <dd>{{ preview().iva | currency: 'COP' : 'symbol' : '1.2-2' : 'es-CO' }}</dd>
         </div>
         <div class="flex justify-between">
-          <dt class="text-white/45">Retención</dt>
+          <dt class="text-black/55">Retención</dt>
           <dd>− {{ preview().withholding | currency: 'COP' : 'symbol' : '1.2-2' : 'es-CO' }}</dd>
         </div>
-        <div class="flex justify-between border-t border-white/10 pt-3 font-display text-2xl">
+        <div class="flex justify-between border-t border-black/10 pt-3 font-display text-2xl">
           <dt>Total</dt>
           <dd class="gi-gold">{{ preview().total | currency: 'COP' : 'symbol' : '1.2-2' : 'es-CO' }}</dd>
         </div>
@@ -87,7 +96,7 @@
       }
 
       <button
-        class="mt-6 w-full rounded-2xl bg-gradient-to-r from-amber-200 to-amber-500 py-3 font-semibold text-ink disabled:opacity-60"
+        class="mt-6 w-full rounded-2xl bg-red-600 py-3 font-semibold text-white shadow-lg shadow-red-950/30 disabled:opacity-60"
         [disabled]="submitting()"
       >
         {{ submitting() ? 'Emitiendo…' : 'Emitir y auditar' }}

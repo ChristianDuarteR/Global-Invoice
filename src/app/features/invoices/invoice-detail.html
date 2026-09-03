@@ -1,44 +1,44 @@
 <div class="gi-in mx-auto max-w-4xl">
-  <a routerLink="/invoices" class="text-sm text-white/45 hover:text-white">← Volver al listado</a>
+  <a routerLink="/invoices" class="text-sm text-black/55 hover:text-red-700">← Volver al listado</a>
 
   @if (loading()) {
-    <p class="mt-10 text-white/50">Consultando backend y SOAP DataFlex…</p>
+    <p class="mt-10 text-black/55">Estamos preparando el detalle…</p>
   } @else if (error()) {
     <p class="mt-10 text-rose-300">{{ error() }}</p>
   } @else if (invoice(); as inv) {
     <div class="mt-6 flex flex-wrap items-end justify-between gap-4">
       <div>
-        <p class="text-xs uppercase tracking-[0.28em] text-white/40">Factura #{{ inv.id }}</p>
+        <p class="text-xs uppercase tracking-[0.28em] text-black/45">Factura #{{ inv.id }}</p>
         <h1 class="mt-1 font-display text-4xl">{{ inv.clientName }}</h1>
       </div>
       <app-type-badge [type]="inv.type" />
     </div>
 
     <blockquote class="gi-card mt-8 rounded-3xl p-8">
-      <p class="text-xs uppercase tracking-[0.28em] text-gold/80">RF-03 · SOAP NumberConversion</p>
+      <p class="text-xs uppercase tracking-[0.28em] text-gold/80">Importe en palabras</p>
       <p class="mt-4 font-display text-3xl leading-tight md:text-4xl">“{{ inv.totalInWords }}”</p>
-      <p class="mt-4 text-sm text-white/45">
-        El front no habla SOAP. Java consume DataFlex y entrega JSON.
+      <p class="mt-4 text-sm text-black/55">
+        Una forma más humana de leer el importe registrado en esta factura.
       </p>
     </blockquote>
 
     <div class="mt-6 grid gap-4 sm:grid-cols-2">
       <div class="gi-card rounded-3xl p-6 space-y-3 text-sm">
-        <div class="flex justify-between"><span class="text-white/45">Subtotal</span><span>{{ inv.subtotal | currency: 'COP' : 'symbol' : '1.2-2' : 'es-CO' }}</span></div>
-        <div class="flex justify-between"><span class="text-white/45">IVA</span><span>{{ inv.iva | currency: 'COP' : 'symbol' : '1.2-2' : 'es-CO' }}</span></div>
-        <div class="flex justify-between"><span class="text-white/45">Retención</span><span>{{ inv.withholding | currency: 'COP' : 'symbol' : '1.2-2' : 'es-CO' }}</span></div>
-        <div class="flex justify-between border-t border-white/10 pt-3 font-display text-2xl">
+        <div class="flex justify-between"><span class="text-black/55">Subtotal</span><span>{{ inv.subtotal | currency: 'COP' : 'symbol' : '1.2-2' : 'es-CO' }}</span></div>
+        <div class="flex justify-between"><span class="text-black/55">IVA</span><span>{{ inv.iva | currency: 'COP' : 'symbol' : '1.2-2' : 'es-CO' }}</span></div>
+        <div class="flex justify-between"><span class="text-black/55">Retención</span><span>{{ inv.withholding | currency: 'COP' : 'symbol' : '1.2-2' : 'es-CO' }}</span></div>
+        <div class="flex justify-between border-t border-black/10 pt-3 font-display text-2xl">
           <span>Total</span><span class="gi-gold">{{ inv.total | currency: 'COP' : 'symbol' : '1.2-2' : 'es-CO' }}</span>
         </div>
       </div>
       <div class="gi-card rounded-3xl p-6 space-y-3 text-sm">
-        <p><span class="text-white/45">Emitida</span><br />{{ inv.createdAt | date: 'medium' : undefined : 'es-CO' }}</p>
-        <p><span class="text-white/45">Por</span><br />{{ inv.createdBy }}</p>
+        <p><span class="text-black/55">Emitida</span><br />{{ inv.createdAt | date: 'medium' : undefined : 'es-CO' }}</p>
+        <p><span class="text-black/55">Por</span><br />{{ inv.createdBy }}</p>
         @if (inv.customsCode) {
-          <p><span class="text-white/45">Código aduanero</span><br />{{ inv.customsCode }}</p>
+          <p><span class="text-black/55">Código aduanero</span><br />{{ inv.customsCode }}</p>
         }
         @if (inv.description) {
-          <p><span class="text-white/45">Descripción</span><br />{{ inv.description }}</p>
+          <p><span class="text-black/55">Descripción</span><br />{{ inv.description }}</p>
         }
       </div>
     </div>

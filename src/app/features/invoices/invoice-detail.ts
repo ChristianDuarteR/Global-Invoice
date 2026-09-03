@@ -25,7 +25,7 @@ export class InvoiceDetailPage implements OnInit {
         this.loading.set(false);
       },
       error: () => {
-        this.error.set('No se pudo obtener el detalle o falló SOAP NumberConversion.');
+        this.error.set('No pudimos cargar el detalle de la factura.');
         this.loading.set(false);
       },
     });
