@@ -31,8 +31,13 @@
             class="invoice-input mt-2 outline-none"
             type="search"
             [formControl]="clientSearch"
-            placeholder="Buscar por nombre o documento"
+            placeholder="Busca y selecciona un cliente"
             autocomplete="off"
+            role="combobox"
+            aria-controls="client-options"
+            aria-autocomplete="list"
+            [attr.aria-expanded]="clients().length > 0"
+            [attr.aria-invalid]="form.controls.clientId.invalid"
           />
           @if (clientsLoading()) {
             <p class="mt-2 text-xs text-black/50">Buscando clientes…</p>
@@ -41,28 +46,26 @@
           } @else if (clients().length === 0) {
             <p class="mt-2 text-xs text-black/50">No encontramos clientes con esa búsqueda.</p>
           }
-          <select
-            class="invoice-input mt-2 outline-none"
-            formControlName="clientId"
-            [attr.aria-invalid]="form.controls.clientId.invalid"
-          >
-            <option value="" disabled>
-              {{ clientsLoading() ? 'Cargando clientes…' : 'Selecciona un cliente' }}
-            </option>
+          <div id="client-options" class="client-options" role="listbox">
             @for (client of clients(); track client.id) {
-              <option [ngValue]="client.id">
-                {{ client.name }} · {{ client.documentType }} {{ client.documentNumber }}
-              </option>
+              <button
+                type="button"
+                class="client-option"
+                [class.selected]="form.controls.clientId.value === client.id"
+                role="option"
+                [attr.aria-selected]="form.controls.clientId.value === client.id"
+                (click)="selectClient(client)"
+              >
+                <span class="client-name">{{ client.name }}</span>
+                <span class="client-meta">{{ client.documentType }} {{ client.documentNumber }} · {{ client.email }}</span>
+              </button>
             }
-          </select>
+          </div>
           @if (form.controls.clientId.invalid && form.controls.clientId.touched) {
             <p class="mt-2 text-sm font-medium text-red-700" role="alert">
               Selecciona un cliente registrado.
             </p>
           }
-          <p class="mt-2 text-xs text-black/50">
-            {{ clients().length }} clientes disponibles en esta página. Usa el buscador para encontrar otro.
-          </p>
         </div>
         <div>
           <label class="field-label">Subtotal</label>
